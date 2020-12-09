@@ -1,3 +1,28 @@
+local weapons = {
+    [`WEAPON_PISTOL_MK2`] = { scope = nil, suppressor = nil, flashlight = `COMPONENT_AT_AR_FLSH`, grip = nil, skin = nil },
+    [`WEAPON_CARBINERIFLE_MK2`] = { scope = `COMPONENT_AT_SIGHTS`, suppressor = `COMPONENT_AT_AR_SUPP`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP_02`, skin = nil },
+    [`WEAPON_PISTOL`] = { scope = nil, suppressor = `component_at_pi_supp_02`, flashlight = `COMPONENT_AT_PI_FLSH`, grip = nil, skin = `COMPONENT_PISTOL_VARMOD_LUXE` },
+    [`WEAPON_PISTOL50`] = { scope = nil, suppressor = `COMPONENT_AT_AR_SUPP_02`, flashlight = `COMPONENT_AT_PI_FLSH`, grip = nil, skin = `COMPONENT_PISTOL50_VARMOD_LUXE` },
+    [`WEAPON_COMBATPISTOL`] = { scope = nil, suppressor = `COMPONENT_AT_PI_SUPP`, flashlight = `COMPONENT_AT_PI_FLSH`, grip = nil, skin = nil },
+    [`WEAPON_APPISTOL`] = { scope = nil, suppressor = `COMPONENT_AT_PI_SUPP`, flashlight = `COMPONENT_AT_PI_FLSH`, grip = nil, skin = `COMPONENT_APPISTOL_VARMOD_LUXE` },
+    [`WEAPON_HEAVYPISTOL`] = { scope = nil, suppressor = `COMPONENT_AT_PI_SUPP`, flashlight = `COMPONENT_AT_PI_FLSH`, grip = nil, skin = `COMPONENT_HEAVYPISTOL_VARMOD_LUXE` },
+    [`WEAPON_VINTAGEPISTOL`] = { scope = nil, suppressor = `COMPONENT_AT_PI_SUPP`, flashlight = nil, grip = nil, skin = nil},
+    [`WEAPON_SMG`] = { scope = `COMPONENT_AT_SCOPE_MACRO_02`, suppressor = `COMPONENT_AT_PI_SUPP`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = nil, skin = `COMPONENT_SMG_VARMOD_LUXE` },
+    [`WEAPON_MICROSMG`] = { scope = `COMPONENT_AT_SCOPE_MACRO`, suppressor = `COMPONENT_AT_AR_SUPP_02`, flashlight = `COMPONENT_AT_PI_FLSH`, grip = nil, skin = `COMPONENT_MICROSMG_VARMOD_LUXE` },
+    [`WEAPON_ASSAULTSMG`] = { scope = `COMPONENT_AT_SCOPE_MACRO`, suppressor = `COMPONENT_AT_AR_SUPP_02`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = nil, skin = nil },
+    [`WEAPON_ASSAULTRIFLE`] = { scope = `COMPONENT_AT_SCOPE_MACRO`, suppressor = `COMPONENT_AT_AR_SUPP_02`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = `COMPONENT_ASSAULTRIFLE_VARMOD_LUXE` },
+    [`WEAPON_CARBINERIFLE`] = { scope = `COMPONENT_AT_SCOPE_MEDIUM`, suppressor = `COMPONENT_AT_AR_SUPP`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = `COMPONENT_CARBINERIFLE_VARMOD_LUXE` },
+    [`WEAPON_ADVANCEDRIFLE`] = { scope = `COMPONENT_AT_SCOPE_SMALL`, suppressor = `COMPONENT_AT_AR_SUPP`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = nil, skin = `COMPONENT_ADVANCEDRIFLE_VARMOD_LUXE` },
+    [`WEAPON_SPECIALCARBINE`] = { scope = `COMPONENT_AT_SCOPE_MEDIUM`, suppressor = `COMPONENT_AT_AR_SUPP_02`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = nil },
+    [`WEAPON_BULLPUPRIFLE`] = { scope = `COMPONENT_AT_SCOPE_SMALL`, suppressor = `COMPONENT_AT_AR_SUPP`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = nil },
+    [`WEAPON_ASSAULTSHOTGUN`] = { scope = nil, suppressor = `COMPONENT_AT_AR_SUPP`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = nil },
+    [`WEAPON_HEAVYSHOTGUN`] = { scope = nil, suppressor = `COMPONENT_AT_AR_SUPP_02`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = nil },
+    [`WEAPON_BULLPUPSHOTGUN`] = { scope = nil, suppressor = `COMPONENT_AT_AR_SUPP_02`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = nil },
+    [`WEAPON_PUMPSHOTGUN`] = { scope = nil, suppressor = `COMPONENT_AT_SR_SUPP`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = nil, skin = nil },
+    [`WEAPON_MARKSMANRIFLE`] = { scope = nil, suppressor = `COMPONENT_AT_AR_SUPP`, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = nil },
+    [`WEAPON_SNIPERRIFLE`] = { scope = `COMPONENT_AT_SCOPE_LARGE`,  suppressor = `COMPONENT_AT_AR_SUPP_02`, flashlight = nil, grip = nil, skin = nil },
+    [`WEAPON_COMBATPDW`] =  { scope = `COMPONENT_AT_SCOPE_SMALL`, suppressor = nil, flashlight = `COMPONENT_AT_AR_FLSH`, grip = `COMPONENT_AT_AR_AFGRIP`, skin = nil }
+}
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -47,18 +72,6 @@ AddEventHandler('conde-inventoryhud:removeCurrentWeapon', function()
     end
 end)
 
--- This is just an example for the carbine rifle, do the same for the following...
-
-local weapons = {
-	[tostring(GetHashKey('WEAPON_CARBINERIFLE'))] = { -- Didn't test this, if it leads to problems replace with hardcoded hash AS A STRING
-		['scope'] = GetHashKey('COMPONENT_AT_SCOPE_MEDIUM'),
-		['suppressor'] = GetHashKey('COMPONENT_AT_AR_SUPP'),
-		['grip'] = GetHashKey('COMPONENT_AT_AR_AFGRIP'),
-		['extendedmag'] = GetHashKey('COMPONENT_CARBINERIFLE_CLIP_02'),
-		['flashlight'] = GetHashKey('COMPONENT_AT_AR_FLSH')
-	}
-}
-
 RegisterNetEvent('tqrp_inventoryhud:useAttach')
 AddEventHandler('tqrp_inventoryhud:useAttach', function(attach)
     local playerPed = PlayerPedId()
@@ -69,16 +82,21 @@ AddEventHandler('tqrp_inventoryhud:useAttach', function(attach)
             if currentWepAttachs[i] == attach then
                 hasAttach = true
             end
-		end
-		if weapons[tostring( hash )] ~= nil and weapons[tostring( hash )][attach] ~= nil and not hasAttach then
-			ESX.TriggerServerCallback('esx_inventory:removeItem', function(cb) end, attach)
-			table.insert(currentWepAttachs, attach)
-            GiveWeaponComponentToPed( playerPed, hash, weapons[tostring( hash )][attach] )
+        end
+        if weapons[hash] ~= nil and weapons[hash][attach] ~= nil and not hasAttach then
+            ESX.TriggerServerCallback('tqrp_inventoryhud:takePlayerItem', function(cb)
+                if cb then
+                    table.insert(currentWepAttachs, attach)
+                    GiveWeaponComponentToPed(playerPed, hash, weapons[hash][attach])
+                else
+                    exports['mythic_notify']:SendAlert('error', 'Ocorreu um erro.')
+                end
+            end, attach, 1)
         else
-            exports['b1g_notify']:Notify('error', 'Esse attachment não é compativel ou já se encontra equipado.')
+            exports['mythic_notify']:SendAlert('error', 'Esse attachment não é compativel ou já se encontra equipado.')
         end
     else
-        exports['b1g_notify']:Notify('error', 'Nenhuma arma selecionada.')
+        exports['mythic_notify']:SendAlert('error', 'Nenhuma arma selecionada.')
     end
 end)
 
@@ -87,37 +105,36 @@ RegisterCommand("desequipar", function(source, args, rawCommand)
         local playerPed = PlayerPedId()
         local hash = GetHashKey(currentWeapon)
         if args[1] then
-			local attach = args[1]
+            local attach = args[1]
             for i = 1, #currentWepAttachs do
                 if currentWepAttachs[i] == attach then
                     ESX.TriggerServerCallback('tqrp_inventoryhud:addPlayerItem', function(cb)
                         if cb then
                             table.remove(currentWepAttachs, i)
-                            RemoveWeaponComponentFromPed(playerPed, hash, weapons[tostring( hash )][attach])
+                            RemoveWeaponComponentFromPed(playerPed, hash, weapons[hash][attach])
                         else
-                            exports['b1g_notify']:Notify('error', 'Espaço insuficiente.')
+                            exports['mythic_notify']:SendAlert('error', 'Espaço insuficiente.')
                         end          
                     end, currentWepAttachs[i], 1)
                     return
                 end
             end
-            exports['b1g_notify']:Notify('error', 'Essa arma não tem esse attachment.')
-		else
-			for i = 1, #currentWepAttachs do
-				if currentWepAttachs[i] ~= nil then
-					ESX.TriggerServerCallback('tqrp_inventoryhud:addPlayerItem', function(cb)
-                        if cb then
-                            RemoveWeaponComponentFromPed(playerPed, hash, weapons[tostring( hash )][currentWepAttachs[i]])
-							table.remove(currentWepAttachs, i)
-                        else
-                            exports['b1g_notify']:Notify('error', 'Espaço insuficiente.')
-                        end          
-                    end, currentWepAttachs[i], 1)
-				end
-			end
-		end
+            exports['mythic_notify']:SendAlert('error', 'Essa arma não tem esse attachment.')
+        else
+            for i = 1, #currentWepAttachs do
+                Citizen.Wait(300)
+                ESX.TriggerServerCallback('tqrp_inventoryhud:addPlayerItem', function(cb)
+                    if cb then
+                        RemoveWeaponComponentFromPed(playerPed, hash, weapons[hash][currentWepAttachs[i]])
+                        table.remove(currentWepAttachs, i)
+                    else
+                        exports['mythic_notify']:SendAlert('error', 'Espaço insuficiente.')
+                    end          
+                end, currentWepAttachs[i], 1)
+            end
+        end
     else
-        exports['b1g_notify']:Notify('error', 'Não tens nenhuma arma na mão.')
+        exports['mythic_notify']:SendAlert('error', 'Não tens nenhuma arma na mão.')
     end
 end)
 
@@ -125,7 +142,7 @@ function RemoveWeapon(weapon)
     local checkh = Config.Throwables
     local playerPed = PlayerPedId()
     local hash = GetHashKey(weapon)
-    local wepInfo = { 
+    local wepInfo = {
         count = GetAmmoInPedWeapon(playerPed, hash),
         attach = currentWepAttachs
     }
@@ -138,7 +155,7 @@ function RemoveWeapon(weapon)
             end, weapon, 1)
         end
     end
-    if PlayerData.job ~= nil and PlayerData.job.name == 'police' then --and GetWeapontypeGroup(hash) == 416676503 then
+    if PlayerData.job ~= nil and PlayerData.job.name == 'police' then --and GetWeapontypeGroup(hash) == 416676503 then (TO ADD JUST PULLING PISTOLS FROM GUN HOLSTER)
         if not HasAnimDictLoaded("reaction@intimidation@cop@unarmed") then
             loadAnimDict( "reaction@intimidation@cop@unarmed" )
         end
@@ -152,7 +169,7 @@ function RemoveWeapon(weapon)
         Citizen.Wait(1600)
     end
     RemoveWeaponFromPed(playerPed, hash)
-	ClearPedTasks(playerPed)
+    ClearPedTasks(playerPed)
     canFire = true
     TriggerEvent('conde-inventoryhud:notification', weapon,"Guardaste", 1, false)
 end
@@ -184,7 +201,7 @@ function GiveWeapon(weapon)
         currentWepAttachs = gunInfo.attachments
         canFire = false
         disable()
-        if PlayerData.job ~= nil and PlayerData.job.name == 'police' then --and GetWeapontypeGroup(hash) == 416676503 then
+        if PlayerData.job ~= nil and PlayerData.job.name == 'police' then --and GetWeapontypeGroup(hash) == 416676503 then (TO ADD JUST PULLING PISTOLS FROM GUN HOLSTER)
             if not HasAnimDictLoaded("rcmjosh4") then
                 loadAnimDict( "rcmjosh4" )
             end
@@ -196,15 +213,15 @@ function GiveWeapon(weapon)
         end
         GiveWeaponToPed(playerPed, hash, 1, false, true)
         for i = 1, #currentWepAttachs do
-            if weapons[tostring( hash )] ~= nil then
-                GiveWeaponComponentToPed(playerPed, hash, weapons[tostring( hash )][currentWepAttachs[i]])
+            if weapons[hash] ~= nil then
+                GiveWeaponComponentToPed(playerPed, hash, weapons[hash][currentWepAttachs[i]])
             end
         end
         if checkh[weapon] == hash then
             ESX.TriggerServerCallback('tqrp_inventoryhud:takePlayerItem', function(cb)
                 SetPedAmmo(playerPed, hash, 1)
             end, weapon, 1)
-        elseif Config.FuelCan == hash and gunInfo.ammoCount == nil then
+        elseif Config.FuelCan == hash and gunInfo == nil then
             SetPedAmmo(playerPed, hash, 1000)
         else
             SetPedAmmo(playerPed, hash, gunInfo.ammoCount or 0)
@@ -214,28 +231,6 @@ function GiveWeapon(weapon)
       end, hash)
     end
 end
-
---[[Citizen.CreateThread(function()
-    local sleep = 1500
-    while true do
-        local player = PlayerPedId()
-        if IsPedShooting(player) then
-            sleep = 10
-            for k, v in pairs(Config.Throwables) do
-                if k == currentWeapon then
-                    ESX.TriggerServerCallback('conde_inventory:takePlayerItem', function(removed)
-                        if removed then
-                            TriggerEvent('conde-inventoryhud:removeCurrentWeapon')
-                        end
-                    end, currentWeapon, 1)
-                end
-            end
-        else
-            sleep = 1500
-        end
-        Citizen.Wait(sleep)
-    end
-end)]]
 
 function disable()
 	Citizen.CreateThread(function ()
